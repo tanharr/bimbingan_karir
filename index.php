@@ -25,7 +25,7 @@ include_once("koneksi.php");
                         <a class="nav-link" aria-current="page" href="index.php">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Data Master</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Lainnya</a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a class="dropdown-item" href="index.php?page=pasien">Pasien</a>
@@ -47,6 +47,9 @@ include_once("koneksi.php");
                             </li>
                             <li>
                                 <a class="dropdown-item" href="index.php?page=jadwal_periksa">Jadwal periksa</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="index.php?page=riwayat_periksa">Riwayat periksa</a>
                             </li>
                         </ul>
                     </li>
