@@ -23,8 +23,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
 
         if ($role == "dokter") {
             header("Location: index.php?page=dokter");
+        } elseif ($role == "pasien") {
+            header("Location: index.php?page=pasien");
         } elseif ($role == "admin") {
-            header("Location: index.php?page=obat");
+            header("Location: index.php");
         }
     } else {
         echo "<script>alert('Username atau password salah. Silakan coba lagi.');</script>";

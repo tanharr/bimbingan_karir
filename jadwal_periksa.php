@@ -17,12 +17,13 @@ if (isset($_POST['simpan'])) {
                                         WHERE
                                         id = '" . $_POST['id'] . "'");
     } else {
-        $tambah = mysqli_query($mysqli, "INSERT INTO jadwal_periksa (id_dokter, hari, jam_mulai, jam_selesai) 
+        $tambah = mysqli_query($mysqli, "INSERT INTO jadwal_periksa (id_dokter, hari, jam_mulai, jam_selesai,status) 
         VALUES (
                                         '" . $_POST['id_dokter'] . "',
                                         '" . $_POST['hari'] . "',
                                         '" . $_POST['jam_mulai'] . "',
-                                        '" . $_POST['jam_selesai'] . "'
+                                        '" . $_POST['jam_selesai'] . "',
+                                        '0'
                                                                             )");
     }
 
@@ -32,24 +33,27 @@ if (isset($_POST['simpan'])) {
 }
 
 if (isset($_GET['aksi'])) {
-    if ($_GET['aksi'] == 'hapus') {
-        $hapus = mysqli_query($mysqli, "DELETE FROM jadwal_periksa WHERE id = '" . $_GET['id'] . "'");
-    } else if ($_GET['aksi'] == 'ubah_status') {
+    if ($_GET['aksi'] == 'aktif') {
         $ubah_status = mysqli_query($mysqli, "UPDATE jadwal_periksa SET 
-                                        status = '" . $_GET['status'] . "' 
+                                        status = '1' 
+                                        WHERE
+                                        id = '" . $_GET['id'] . "'");
+    }else  if ($_GET['aksi'] == 'non_aktif') {
+        $ubah_status = mysqli_query($mysqli, "UPDATE jadwal_periksa SET 
+                                        status = '0' 
                                         WHERE
                                         id = '" . $_GET['id'] . "'");
     }
 
     echo "<script> 
-    document.location='index.php?page=jadwal_periksa';
+            document.location='index.php?page=jadwal_periksa';
             </script>";
 }
 ?>
 </main>
 <div class="container">
     <!--Form Input Data-->
-    <h2>Jadwal Periksa</h2>
+    <h2>Jadwal Praktek</h2>
 <br>
     <?php
 include'koneksi.php';
@@ -137,7 +141,7 @@ include'koneksi.php';
             <th scope="col">Hari</th>
             <th scope="col">Jam Mulai</th>
             <th scope="col">Jam Selesai</th>
-            <th scope="col">Aksi</th>
+            <th scope="col">Aksi</th> 
         </tr>
     </thead>
         <!--thead atau baris judul-->
@@ -159,8 +163,21 @@ include'koneksi.php';
             echo "<td>" . $data['jam_mulai'] . "</td>"; // 'keluhan' instead of 'Keluhan'
             echo "<td>" . $data['jam_selesai'] . "</td>";
             echo "<td>";
-            echo '<a class="btn btn-success rounded-pill px-3" href="index.php?page=jadwal_periksa&id=' . $data['id'] . '">Ubah</a>';
-            echo '<a class="btn btn-danger rounded-pill px-3" href="index.php?page=jadwal_periksa&id=' . $data['id'] . '&aksi=hapus">Hapus</a>';
+            if ($data['status'] == '1') {
+                ?>
+                    <a class="btn btn-success rounded-pill px-3" type="button" 
+                    href="index.php?page=jadwal_periksa&id=<?php echo $data['id'] ?>&aksi=non_aktif">
+                    Non Aktif
+                    </a>
+                <?php
+                } else {
+                ?>
+                    <a class="btn btn-warning rounded-pill px-3" type="button" 
+                    href="index.php?page=jadwal_periksa&id=<?php echo $data['id'] ?>&aksi=aktif">
+                    Aktif</a>
+                <?php
+                }
+            
             echo "</td>";
             echo "</tr>";
         }
@@ -169,5 +186,6 @@ include'koneksi.php';
     }
     
     ?>
+    
     </tbody>
     </table>

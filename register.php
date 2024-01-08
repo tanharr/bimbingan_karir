@@ -216,7 +216,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
                             <label for="role">Choose a role:</label>
                             <select name="role" id="role">
                                 <option value="dokter">Dokter</option>
-                                <option value="pasien">Admin</option>
+                                <option value="pasien">Pasien</option>
+                                <option value="Admin">Admin</option>
                             </select>
                         </div>
                         <p>Already have an account? <a href="login.php">Login</a></p>
